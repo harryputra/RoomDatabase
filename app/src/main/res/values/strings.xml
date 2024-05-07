@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Room Database</string>
+    <string-array name="jurusan_options">
+        <item>TRO</item>
+        <item>TRMO</item>
+        <item>TRIN</item>
+    </string-array>
+
 </resources>

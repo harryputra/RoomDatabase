@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.Spinner
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,5 +70,33 @@ class MainActivity : AppCompatActivity() {
         list.clear()
         list.addAll(database.userDao().getAll())
         userAdapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Update checkbox status based on data in database when resuming the activity
+        updateCheckboxStatus()
+        // Update spinner selection based on data in database when resuming the activity
+        updateSpinnerSelection()
+    }
+
+    private fun updateCheckboxStatus() {
+        val currentUser = list.firstOrNull { it.uid == intent.getIntExtra("uid", -1) }
+        currentUser?.let {
+            findViewById<CheckBox>(R.id.checkBox_membaca).isChecked = it.hobby.contains("Membaca")
+            findViewById<CheckBox>(R.id.checkBox_menulis).isChecked = it.hobby.contains("Menulis")
+            findViewById<CheckBox>(R.id.checkBox_nonton).isChecked = it.hobby.contains("Nonton")
+            findViewById<CheckBox>(R.id.checkBox_jalan_jalan).isChecked = it.hobby.contains("Jalan-jalan")
+            findViewById<CheckBox>(R.id.checkBox_main_game).isChecked = it.hobby.contains("Main game")
+        }
+    }
+    private fun updateSpinnerSelection() {
+        val currentUser = list.firstOrNull { it.uid == intent.getIntExtra("uid", -1) }
+        currentUser?.let {
+            val spinner = findViewById<Spinner>(R.id.spinner_jurusan)
+            val jurusanArray = resources.getStringArray(R.array.jurusan_options)
+            val jurusanIndex = jurusanArray.indexOf(currentUser.jurusan)
+            spinner.setSelection(jurusanIndex)
+        }
     }
 }

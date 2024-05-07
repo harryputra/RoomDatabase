@@ -11,5 +11,8 @@ data class User(
     val uid: Int,
     @ColumnInfo(name = "name")
     val fullName: String,
-    val email: String
+    val email: String,
+    val notelpon: String,
+    val hobby: String,
+    val jurusan: String
 )
