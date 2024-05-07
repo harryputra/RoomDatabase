@@ -10,7 +10,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.roomdatabase.data.dao.UserDao
 import com.example.roomdatabase.data.entity.User
 
-@Database(entities = [User::class], version = 2)
+@Database(entities = [User::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
 
     private val mIsDatabaseCreated = MutableLiveData<Boolean>()
